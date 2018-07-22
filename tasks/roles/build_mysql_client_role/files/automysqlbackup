@@ -1,8 +1,0 @@
-USERNAME="{{ mysql_username }}"
-PASSWORD="{{ mysql_password }}"
-DBHOST="{{ mysql_hostname }}"
-DBNAMES="{{ mysql_databasenames }}"
-BACKUPDIR="/var/lib/automysqlbackup"
-MAILCONTENT="quiet"
-MAILADDR="root"
-CREATE_DATABASE="yes"
