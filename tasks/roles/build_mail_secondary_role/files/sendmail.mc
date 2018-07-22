@@ -53,7 +53,7 @@ dnl # Remove `, Addr=' clauses to receive from any interface
 dnl # If you want to support IPv6, switch the commented/uncommentd lines
 dnl #
 include(`/etc/mail/tls/starttls.m4')dnl
-include(`/etc/mail/sasl/sasl.m4')dnl
+dnl # include(`/etc/mail/sasl/sasl.m4')dnl
 FEATURE(`no_default_msa')dnl
 DAEMON_OPTIONS(`Family=inet, Name=MTA-v4, Port=smtp, Addr=127.0.0.1')dnl
 DAEMON_OPTIONS(`Family=inet6, Name=MTA-v6, Port=smtp, Addr=0:0:0:0:0:0:0:1')dnl
