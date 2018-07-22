@@ -1,0 +1,18 @@
+- name: install certificate
+  file:
+    src: "{{ item }}"
+    dest: "/etc/ssl/certs"
+    owner: "root"
+    group: "ssl-cert"
+    mode: 0644
+  with_items:
+    - file/wildcard.nth-dimension.org.uk.pem
+    - file/GandiStandardSSLCA2.pem
+- name: install key
+  copy:
+    content: "{{ ssl_key }}"
+    dest: "/etc/ssl/private/wildcard.nth-dimension.org.uk.key"
+    owner: "root"
+    group: "ssl-cert"
+    mode: 0600
+  no_log: true

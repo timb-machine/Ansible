@@ -12,6 +12,7 @@
   become: true
   roles:
     - build_role
+    - build_ssl_role
 - hosts: dns_primary
   vars:
     admin: "timb"
@@ -26,6 +27,7 @@
   become: true
   roles:
     - build_role
+    - build_ssl_role
 - hosts: dns_secondary
   vars:
     admin: "timb"

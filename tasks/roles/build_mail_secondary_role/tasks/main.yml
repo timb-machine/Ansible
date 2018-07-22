@@ -17,16 +17,21 @@
     dest: "/etc/mail"
     owner: "root"
     group: "root"
-    mode: 0644
+    mode: 0600
   with_items:
     - files/aliases
     - files/local-host-names
     - files/relay-domains
     - files/sendmail.mc
-  notify: restart Sendmail
+- name: configure SSL
+  file:
+    src: "files/starttls.m4"
+    dest: "/etc/mail/tls"
+    owner: "root"
+    group: "root"
+    mode: 0600
 - name: rebuild aliases
   shell: "newaliases"
-  notify: restart Sendmail
 - name: rebuild config
   shell: "make"
   args:
