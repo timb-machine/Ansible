@@ -26,6 +26,7 @@
     comment: "Tim Brown"
     shell: "/bin/bash"
     groups: "sudo,adm"
+  no_log: true
 - name: add admin key
   authorized_key:
     state: present

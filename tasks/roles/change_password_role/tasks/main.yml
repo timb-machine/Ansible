@@ -6,3 +6,4 @@
     comment: "Tim Brown"
     shell: "/bin/bash"
     groups: "sudo,adm"
+  no_log: true
