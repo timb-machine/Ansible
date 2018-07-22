@@ -1,0 +1,48 @@
+zone "nth-dimension.org.uk" in {
+	in-view "common";
+};
+zone "punk.eu.org" in {
+	in-view "common";
+};
+zone "timb.me.uk" in {
+	in-view "common";
+};
+zone "timandjag.org" in {
+	in-view "common";
+};
+zone "machine.org.uk" in {
+	in-view "common";
+};
+zone "solarisadmin.org" in {
+	in-view "common";
+};
+zone "debianadmin.org" in {
+	in-view "common";
+};
+zone "unixadmin.org" in {
+	in-view "common";
+};
+zone "duncehats.org" in {
+	in-view "common";
+};
+zone "vulnerabilitymarketingboard.com" in {
+	in-view "common";
+};
+zone "exploitwriter.org" in {
+	in-view "common";
+};
+zone "securityresearcher.org" in {
+	in-view "common";
+};
+zone "fluidic-arts.co.uk" in {
+	in-view "common";
+};
+zone "fuzzled.pl" in {
+	in-view "common";
+};
+zone "cspcalculator.org" in {
+	in-view "common";
+};
+zone "emfctf.org" in {
+	in-view "common";
+};

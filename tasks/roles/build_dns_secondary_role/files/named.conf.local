@@ -1,0 +1,128 @@
+zone "nth-dimension.org.uk" in {
+	type slave;
+	file "sec/db.nth-dimension.org.uk";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "punk.eu.org" in {
+	type slave;
+	file "sec/db.punk.eu.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "timb.me.uk" in {
+	type slave;
+	file "sec/db.timb.me.uk";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "timandjag.org" in {
+	type slave;
+	file "sec/db.timandjag.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "machine.org.uk" in {
+	type slave;
+	file "sec/db.machine.org.uk";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "solarisadmin.org" in {
+	type slave;
+	file "sec/db.solarisadmin.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "debianadmin.org" in {
+	type slave;
+	file "sec/db.debianadmin.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "unixadmin.org" in {
+	type slave;
+	file "sec/db.unixadmin.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "duncehats.org" in {
+	type slave;
+	file "sec/db.duncehats.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "vulnerabilitymarketingboard.com" in {
+	type slave;
+	file "sec/db.vulnerabilitymarketingboard.com";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "exploitwriter.org" in {
+	type slave;
+	file "sec/db.exploitwriter.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "securityresearcher.org" in {
+	type slave;
+	file "sec/db.securityresearcher.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "fluidic-arts.co.uk" in {
+	type slave;
+	file "sec/db.fluidic-arts.co.uk";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "fuzzled.pl" in {
+	type slave;
+	file "sec/db.fuzzled.pl";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "cspcalculator.org" in {
+	type slave;
+	file "sec/db.cspcalculator.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};
+zone "emfctf.org" in {
+	type slave;
+	file "sec/db.emfctf.org";
+	masters {
+		95.142.171.45;
+		2001:4b98:dc0:47:216:3eff:fe61:a662;
+	};
+};

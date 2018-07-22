@@ -1,0 +1,16 @@
+- hosts: gandi_all
+  vars:
+    admin: "timb"
+    ansible_user: "root"
+  become: false
+  roles:
+    - patch_role
+    - harden_role
+- hosts: digitalocean_all
+  vars:
+    admin: "timb"
+    ansible_user: "root"
+  become: false
+  roles:
+    - patch_role
+    - harden_role

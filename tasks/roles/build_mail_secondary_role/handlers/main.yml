@@ -1,0 +1,10 @@
+- name: restart SpamAssassin
+  service:
+    state: restarted
+    name: "spamassassin"
+    enabled: true
+- name: restart Sendmail
+  service:
+    state: restarted
+    name: "sendmail"
+    enabled: true

@@ -1,0 +1,48 @@
+- name: install base tools
+  apt:
+    state: latest
+    name: "{{ item }}"
+  with_items:
+    - tlsdate
+    - figlet
+    - sysnews
+    - htop
+    - iotop
+    - screen
+- name: create MOTD updater
+  copy:
+    src: "files/01-hostname"
+    dest: "/etc/update-motd.d"
+    owner: "root"
+    group: "root"
+    mode: 0755
+- name: create news display
+  copy:
+    src: "files/news.sh"
+    dest: "/etc/profile.d"
+    owner: "root"
+    group: "root"
+    mode: 0644
+- name: create swap file
+  shell: "[ ! -f \"/swap\" ] && fallocate -l 2G /swap.tmp || exit 0"
+- name: format swap file
+  shell: "[ ! -f \"/swap\" ] && mkswap /swap.tmp || exit 0"
+- name: rotate swap file
+  shell: "[ ! -f \"/swap\" ] && mv /swap.tmp /swap || exit 0"
+- name: fix swap file permissions
+  file:
+    path: "/swap"
+    owner: "root"
+    group: "root"
+    mode: 0600
+- name: add swap
+  shell: "[ -z \"$(swapon)\" ] && swapon /swap || exit 0"
+- name: write swap entry to fstab
+  mount:
+    state: present
+    name: none
+    src: "/swap"
+    fstype: swap
+    opts: sw
+    passno: 0
+    dump: 0

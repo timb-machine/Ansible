@@ -1,0 +1,64 @@
+zone "nth-dimension.org.uk" in {
+	type master;
+	file "pri/db.nth-dimension.org.uk";
+};
+zone "punk.eu.org" in {
+	type master;
+	file "pri/db.punk.eu.org";
+};
+zone "timb.me.uk" in {
+	type master;
+	file "pri/db.timb.me.uk";
+};
+zone "timandjag.org" in {
+	type master;
+	file "pri/db.timandjag.org";
+};
+zone "machine.org.uk" in {
+	type master;
+	file "pri/db.machine.org.uk";
+};
+zone "solarisadmin.org" in {
+	type master;
+	file "pri/db.solarisadmin.org";
+};
+zone "debianadmin.org" in {
+	type master;
+	file "pri/db.debianadmin.org";
+};
+zone "unixadmin.org" in {
+	type master;
+	file "pri/db.unixadmin.org";
+};
+zone "duncehats.org" in {
+	type master;
+	file "pri/db.duncehats.org";
+};
+zone "vulnerabilitymarketingboard.com" in {
+	type master;
+	file "pri/db.vulnerabilitymarketingboard.com";
+};
+zone "exploitwriter.org" in {
+	type master;
+	file "pri/db.exploitwriter.org";
+};
+zone "securityresearcher.org" in {
+	type master;
+	file "pri/db.securityresearcher.org";
+};
+zone "fluidic-arts.co.uk" in {
+	type master;
+	file "pri/db.fluidic-arts.co.uk";
+};
+zone "fuzzled.pl" in {
+	type master;
+	file "pri/db.fuzzled.pl";
+};
+zone "cspcalculator.org" in {
+	type master;
+	file "pri/db.cspcalculator.org";
+};
+zone "emfctf.org" in {
+	type master;
+	file "pri/db.emfctf.org";
+};

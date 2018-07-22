@@ -1,0 +1,7 @@
+- name: update
+  apt:
+    update_cache: yes
+- name: upgrade
+  apt:
+    state: latest
+    upgrade: yes

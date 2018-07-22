@@ -1,0 +1,70 @@
+- hosts: all
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: gandi_all
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: dns_primary
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: digitalocean_all
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: dns_secondary
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: mail_secondary
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: mail_dumb
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: docker
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+    - build_docker_role
+- hosts: www
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: www.sciencedimension.co.uk
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+- hosts: www.emfctf.org
+  vars:
+    admin: "timb"
+    ansible_user: "{{ admin }}"
+  become: true
+  roles:
+    - build_mysql_client_role
+    - clean_ctf_role
+    - purge_ctf_role

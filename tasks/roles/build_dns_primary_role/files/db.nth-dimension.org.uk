@@ -1,0 +1,130 @@
+$ORIGIN .
+$TTL 43200	; 12 hours
+nth-dimension.org.uk.			IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.org.uk. (
+								40111      ; serial
+								43201      ; refresh (12 hours)
+								300        ; retry (5 minutes)
+								3628800    ; expire (6 weeks)
+								86400      ; minimum (1 day)
+							)
+						NS	ns1.fr.nth-dimension.org.uk.
+						NS	ns1.us.nth-dimension.org.uk.
+						NS	ns1.in.nth-dimension.org.uk.
+						NS	ns1.sg.nth-dimension.org.uk.
+						MX	10 mail1.fr.nth-dimension.org.uk.
+						MX	20 mail1.us.nth-dimension.org.uk.
+						MX	30 mail1.in.nth-dimension.org.uk.
+						MX	40 mail1.sg.nth-dimension.org.uk.
+						TXT	( "v=spf1 ip4:95.142.163.59/32 ip6:2001:4b98:dc0:47:216:3eff:fea2:7afb/128"
+							  "ip4:95.142.171.45/32 ip6:2001:4b98:dc0:47:216:3eff:fe61:a662/128"
+							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
+							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
+							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+						SPF	( "v=spf1 ip4:95.142.163.59/32 ip6:2001:4b98:dc0:47:216:3eff:fea2:7afb/128"
+							  "ip4:95.142.171.45/32 ip6:2001:4b98:dc0:47:216:3eff:fe61:a662/128"
+							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
+							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
+							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+						TYPE257	\# 17 ( 00056973737565636F6D6F646F2E636F6D )
+$ORIGIN nth-dimension.org.uk.
+_429527E300D08DE51E21C0E924658596		CNAME	4AD521F7C2222E198DF8187709D97548.5D44A10A3BF3FDA056A01C74B6F5334F.d3d9022eea71cf269290.comodoca.com.
+$ORIGIN fr.nth-dimension.org.uk.
+paris1						A	95.142.163.59
+paris1						TXT	"v=spf1 a -all"
+paris1						AAAA	2001:4b98:dc0:47:216:3eff:fea2:7afb
+paris1						SPF	"v=spf1 a -all"
+paris2						A	95.142.171.45
+paris2						AAAA	2001:4b98:dc0:47:216:3eff:fe61:a662
+paris2						TXT	"v=spf1 a -all"
+paris2						SPF	"v=spf1 a -all"
+mail1						A	95.142.163.59
+;mail1						AAAA	2001:4b98:dc0:47:216:3eff:fea2:7afb
+mail1						TXT	"v=spf1 a -all"
+mail1						SPF	"v=spf1 a -all"
+ns1						A	95.142.171.45
+ns1						AAAA	2001:4b98:dc0:47:216:3eff:fe61:a662
+$ORIGIN us.nth-dimension.org.uk.
+newyork1					A	159.203.89.126
+newyork1					AAAA	2604:a880:800:a1::17:f001
+newyork1					TXT	"v=spf1 a -all"
+newyork1					SPF	"v=spf1 a -all"
+mail1						A	159.203.89.126
+;mail1						AAAA	2604:a880:800:a1::17:f001
+mail1						TXT	"v=spf1 a -all"
+mail1						SPF	"v=spf1 a -all"
+ns1						A	159.203.89.126
+ns1						AAAA	2604:a880:800:a1::17:f001
+$ORIGIN in.nth-dimension.org.uk.
+bangalore1					A	139.59.9.60
+bangalore1					AAAA	2400:6180:100:d0::3001
+bangalore1					TXT	"v=spf1 a -all"
+bangalore1					SPF	"v=spf1 a -all"
+mail1						A	139.59.9.60
+;mail1						AAAA	2400:6180:100:d0::3001
+mail1						TXT	"v=spf1 a -all"
+mail1						SPF	"v=spf1 a -all"
+ns1						A	139.59.9.60
+ns1						AAAA	2400:6180:100:d0::3001
+$ORIGIN sg.nth-dimension.org.uk.
+city1						A	128.199.163.237
+city1						AAAA	2400:6180:0:d0::3a:2001
+city1						TXT	"v=spf1 a -all"
+city1						SPF	"v=spf1 a -all"
+mail1						A	128.199.163.237
+;mail1						AAAA	2400:6180:0:d0::3a:2001
+mail1						TXT	"v=spf1 a -all"
+mail1						SPF	"v=spf1 a -all"
+ns1						A	128.199.163.237
+ns1						AAAA	2400:6180:0:d0::3a:2001
+$ORIGIN nth-dimension.org.uk.
+www						CNAME	paris1.fr
+www-admin					CNAME	paris1.fr
+projects					CNAME	paris1.fr
+subversion					CNAME	paris1.fr
+wiki						CNAME	paris1.fr
+ftp						CNAME	paris1.fr
+rsync						CNAME	paris1.fr
+jabber						CNAME	paris1.fr
+$ORIGIN jabber.nth-dimension.org.uk.
+c2s						CNAME	jabber.nth-dimension.org.uk.
+conference					CNAME	jabber.nth-dimension.org.uk.
+dnsrv						CNAME	jabber.nth-dimension.org.uk.
+elogger						CNAME	jabber.nth-dimension.org.uk.
+s2s						CNAME	jabber.nth-dimension.org.uk.
+sessions					CNAME	jabber.nth-dimension.org.uk.
+$ORIGIN _tcp.jabber.nth-dimension.org.uk.
+_jabber						SRV	0 0 5269 paris1.fr.nth-dimension.org.uk.
+_xmpp-client					SRV	0 0 5222 paris1.fr.nth-dimension.org.uk.
+_xmpp-server					SRV	0 0 5269 paris1.fr.nth-dimension.org.uk.
+$ORIGIN nth-dimension.org.uk.
+lists						A	95.142.163.59
+lists						MX	10 mail1.fr.nth-dimension.org.uk.
+lists						MX	20 mail1.us.nth-dimension.org.uk.
+lists						MX	30 mail1.in.nth-dimension.org.uk.
+lists						MX	40 mail1.sg.nth-dimension.org.uk.
+lists						TXT	( "v=spf1 ip4:95.142.163.59/32 ip6:2001:4b98:dc0:47:216:3eff:fea2:7afb/128"
+							  "ip4:95.142.171.45/32 ip6:2001:4b98:dc0:47:216:3eff:fe61:a662/128"
+							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
+							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
+							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+lists						SPF	( "v=spf1 ip4:95.142.163.59/32 ip6:2001:4b98:dc0:47:216:3eff:fea2:7afb/128"
+							  "ip4:95.142.171.45/32 ip6:2001:4b98:dc0:47:216:3eff:fe61:a662/128"
+							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
+							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
+							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+$ORIGIN uk.nth-dimension.org.uk.
+fw						A	80.82.247.58
+$ORIGIN ext.uk.nth-dimension.org.uk.
+gw.wifi						A	10.2.1.1
+42						A	80.82.248.42
+43						A	80.82.248.43
+44						A	80.82.248.44
+45						A	80.82.248.45
+46						A	80.82.248.46
+gw						A	80.82.248.41
+$ORIGIN core.uk.nth-dimension.org.uk.
+gw						A	10.10.10.1
+nas						A	10.10.10.2
+private-nas					A	10.10.10.3
+$ORIGIN int.uk.nth-dimension.org.uk.
+gw.wifi						A	10.1.1.1

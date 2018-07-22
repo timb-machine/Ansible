@@ -1,0 +1,78 @@
+- name: install WordPress
+  apt:
+    state: latest
+    name: wordpress
+- name: uncompress installer
+  shell: "[ -f \"/usr/share/doc/wordpress/examples/setup-mysql.gz\" ] && gunzip \"/usr/share/doc/wordpress/examples/setup-mysql.gz\" || exit 0"
+- name: fix installer permissions
+  shell: "chmod 0755 \"/usr/share/doc/wordpress/examples/setup-mysql\""
+- name: configure WordPress
+  shell: "/usr/share/doc/wordpress/examples/setup-mysql -n \"{{ item.databasename }}\" \"{{ item.hostname }}\" || exit 0"
+  with_items: "{{ blogs }}"
+- name: remove web roots
+  file:
+    state: absent
+    path: "/var/www/{{ item.hostname }}"
+  with_items: "{{ blogs }}"
+- name: create vhost symlinks
+  file:
+    state: link
+    src: "/usr/share/wordpress"
+    dest: "/var/www/{{ item.hostname }}"
+  with_items: "{{ blogs }}"
+- name: make content directory
+  file:
+    state: directory
+    path: "/var/www/wp-content/{{ item.hostname }}"
+    owner: "root"
+    group: "root"
+    mode: 0755
+  with_items: "{{ blogs }}"
+- name: enable wp-content on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
+    regexp: "^Alias /wp-content"
+    insertafter: "DocumentRoot /var/www/"
+    line: "Alias /wp-content /var/www/wp-content/{{ item.hostname }}"
+  with_items: "{{ blogs }}"
+- name: configure .htaccess
+  file:
+    src: "files/htaccess"
+    dest: "/etc/wordpress"
+    owner: "root"
+    group: "root"
+    mode: 0644
+- name: configure directory overrides on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
+    regexp: "^<Directory /var/www/>"
+    insertafter: "DocumentRoot /var/www/"
+    line: "<Directory /var/www/{{ item.hostname }}>"
+  with_items: "{{ blogs }}"
+- name: enable .htaccess level URL rewrites on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
+    regexp: "^AllowOverride"
+    insertafter: "^<Directory /var/www/"
+    line: "AllowOverride FileInfo"
+  with_items: "{{ blogs }}"
+- name: finish directory overrides on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
+    regexp: "^</Directory>"
+    insertafter: "^AllowOverride"
+    line: "</Directory>"
+  with_items: "{{ vhosts }}"
+  notify: restart Apache
+- name: run AutoMySQLBackup
+  shell: "/usr/sbin/automysqlbackup && exit 0 || exit 0"
+- name: creates latest.tar.gz for remote backup
+  shell: "rm -f \"/var/lib/automysqlbackup/latest.tar.gzl\"; for directorypath in /var/lib/automysqlbackup/daily/*; do backupfilenames=\"${backupfilenames} ${directorypath}/$(ls -rt \"${directorypath}\" | tail -n 1)\"; done; tar zcvf \"/var/lib/automysqlbackup/latest.tar.gz\" ${backupfilenames}"
+- name: retrieve latest backup
+  fetch:
+    src: "/var/lib/automysqlbackup/latest.tar.gz"
+    dest: "../backups/mysql/{{ ansible_date_time.iso8601_basic_short }}"

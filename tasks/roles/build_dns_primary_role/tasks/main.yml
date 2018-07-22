@@ -1,0 +1,63 @@
+- name: install BIND 9
+  apt:
+    state: latest
+    name: bind9
+- name: make BIND 9 cache directory
+  file:
+    state: directory
+    path: "/var/cache/bind/pri"
+    owner: "bind"
+    group: "bind"
+    mode: 0755
+- name: configure BIND 9
+  template:
+    src: "{{ item }}"
+    dest: "/etc/bind"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  with_items:
+    - files/named.conf
+    - files/named.conf.options
+    - files/named.conf.acls
+    - files/named.conf.default-zones
+    - files/named.conf.local
+    - files/named.conf.local.internal
+    - files/named.conf.local.external
+- name: add BIND 9 zones
+  copy:
+    src: "{{ item }}"
+    dest: "/var/cache/bind/pri"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  with_items:
+    - files/db.nth-dimension.org.uk
+    - files/db.punk.eu.org
+    - files/db.timandjag.org
+    - files/db.timb.me.uk
+    - files/db.machine.org.uk
+    - files/db.solarisadmin.org
+    - files/db.debianadmin.org
+    - files/db.unixadmin.org
+    - files/db.duncehats.org
+    - files/db.vulnerabilitymarketingboard.com
+    - files/db.exploitwriter.org
+    - files/db.securityresearcher.org
+    - files/db.fluidic-arts.co.uk
+    - files/db.fuzzled.pl
+    - files/db.cspcalculator.org
+    - files/db.emfctf.org
+  notify: restart BIND 9
+- name: UFW allow TCP DNS
+  ufw:
+    rule: allow
+    direction: in
+    proto: "tcp"
+    port: 53
+- name: UFW allow UDP DNS
+  ufw:
+    rule: allow
+    direction: in
+    proto: "udp"
+    port: 53

@@ -1,0 +1,5 @@
+- name: restart BIND 9
+  service:
+    state: restarted
+    name: "bind9"
+    enabled: true

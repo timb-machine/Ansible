@@ -1,0 +1,8 @@
+- name: add admin
+  user:
+    state: present
+    name: "{{ admin }}"
+    password: "{{ admin_hash }}"
+    comment: "Tim Brown"
+    shell: "/bin/bash"
+    groups: "sudo,adm"

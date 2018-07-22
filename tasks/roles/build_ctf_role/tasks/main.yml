@@ -1,0 +1,62 @@
+- name: install CTFd
+  git:
+    repo: "https://github.com/timb-machine/CTFd"
+    dest: "/usr/local/python/CTFd-trunk"
+- name: configure CTFd
+  template:
+    src: "{{ item }}"
+    dest: "/usr/local/python/CTFd-trunk"
+    owner: "root"
+    group: "root"
+    mode: 0600
+  with_items:
+    - files/.ctfd_secret_key
+    - files/docker-compose.yml
+- name: start CTFd
+  docker_service:
+    state: present
+    project_src: "/usr/local/python/CTFd-trunk"
+- name: configure AutoMySQLBackup
+  template:
+    src: "files/automysqlbackup"
+    dest: "/etc/default"
+    owner: "root"
+    group: "root"
+    mode: 0600
+- name: enable Apache mod_proxy_http
+  shell: "a2enmod proxy_http"
+- name: enable Apache mod_proxy
+  shell: "a2enmod proxy"
+- name: enable pass through for .well-known on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
+    regexp: "^ProxyPass /.well-known/ "
+    insertafter: "DocumentRoot /var/www/"
+    line: "ProxyPass /.well-known/ !"
+  with_items: "{{ vhosts }}"
+- name: enable proxy on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
+    regexp: "^ProxyPass / "
+    insertafter: "^ProxyPass /.well-known/ "
+    line: "ProxyPass / http://127.0.0.1:8000/"
+  with_items: "{{ vhosts }}"
+- name: enable reverse proxy on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
+    regexp: "^ProxyPassReverse / "
+    insertafter: "^ProxyPass / "
+    line: "ProxyPassReverse / http://127.0.0.1:8000/"
+  with_items: "{{ vhosts }}"
+  notify: restart Apache
+- name: run AutoMySQLBackup
+  shell: "/usr/sbin/automysqlbackup && exit 0 || exit 0"
+- name: creates latest.tar.gz for remote backup
+  shell: "rm -f \"/var/lib/automysqlbackup/latest.tar.gzl\"; for directorypath in /var/lib/automysqlbackup/daily/*; do backupfilenames=\"${backupfilenames} ${directorypath}/$(ls -rt \"${directorypath}\" | tail -n 1)\"; done; tar zcvf \"/var/lib/automysqlbackup/latest.tar.gz\" ${backupfilenames}"
+- name: retrieve latest backup
+  fetch:
+    src: "/var/lib/automysqlbackup/latest.tar.gz"
+    dest: "../backups/mysql/{{ ansible_date_time.iso8601_basic_short }}"

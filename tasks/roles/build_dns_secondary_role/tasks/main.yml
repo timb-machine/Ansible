@@ -1,0 +1,39 @@
+- name: install BIND 9
+  apt:
+    state: latest
+    name: bind9
+- name: make BIND 9 cache directory
+  file:
+    state: directory
+    path: "/var/cache/bind/sec"
+    owner: "bind"
+    group: "bind"
+    mode: 0755
+- name: configure BIND 9
+  template:
+    src: "{{ item }}"
+    dest: "/etc/bind"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  with_items:
+    - files/named.conf
+    - files/named.conf.options
+    - files/named.conf.acls
+    - files/named.conf.default-zones
+    - files/named.conf.local
+    - files/named.conf.local.internal
+    - files/named.conf.local.external
+  notify: restart BIND 9
+- name: UFW allow TCP DNS
+  ufw:
+    rule: allow
+    direction: in
+    proto: "tcp"
+    port: 53
+- name: UFW allow UDP DNS
+  ufw:
+    rule: allow
+    direction: in
+    proto: "udp"
+    port: 53

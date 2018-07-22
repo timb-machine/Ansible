@@ -1,0 +1,53 @@
+- name: install ClamAV
+  apt:
+    state: latest
+    name: clamav-milter
+- name: install SpamAssassin
+  apt:
+    state: latest
+    name: spamass-milter
+  notify: restart SpamAssassin
+- name: install Sendmail
+  apt:
+    name: sendmail
+    state: latest
+- name: configure Sendmail
+  template:
+    src: "{{ item }}"
+    dest: "/etc/mail"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  with_items:
+    - files/aliases
+    - files/local-host-names
+    - files/relay-domains
+    - files/sendmail.mc
+  notify: restart Sendmail
+- name: rebuild aliases
+  shell: "newaliases"
+  notify: restart Sendmail
+- name: rebuild config
+  shell: "make"
+  args:
+    chdir: "/etc/mail"
+  notify: restart Sendmail
+- name: create forward file
+  copy:
+    src: "files/forward"
+    dest: "/home/{{ admin }}/.forward"
+    owner: "{{ admin }}"
+    group: "users"
+    mode: 0644
+- name: UFW allow TCP SMTP
+  ufw:
+    rule: allow
+    direction: in
+    proto: "tcp"
+    port: 25
+- name: UFW allow TCP submission
+  ufw:
+    rule: allow
+    direction: in
+    proto: "tcp"
+    port: 587

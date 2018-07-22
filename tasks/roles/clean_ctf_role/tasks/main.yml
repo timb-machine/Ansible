@@ -1,0 +1,21 @@
+- name: remove old containers
+  docker_container:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - ctfdtrunk_ctfd_1
+    - ctfdtrunk_db_1
+    - ctfdtrunk_cache_1
+- name: remove old images
+  docker_image:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - ctfdtrunk_ctfd
+    - python:2.7-alpine
+    - mariadb:10.2
+    - redis:4
+- name: remove source
+  file:
+    path: "/usr/local/python/CTFd-trunk"
+    state: absent

@@ -1,0 +1,25 @@
+- name: install Sendmail
+  apt:
+    state: latest
+    name: sendmail
+- name: configure Sendmail
+  template:
+    src: "{{ item }}"
+    dest: "/etc/mail"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  with_items:
+    - files/aliases
+    - files/local-host-names
+  notify: restart Sendmail
+- name: rebuild aliases
+  shell: "newaliases"
+  notify: restart Sendmail
+- name: create forward file
+  copy:
+    src: "files/forward"
+    dest: "/home/{{ admin }}/.forward"
+    owner: "{{ admin }}"
+    group: "users"
+    mode: 0644

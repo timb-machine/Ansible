@@ -1,0 +1,120 @@
+- name: install Apache
+  apt:
+    state: latest
+    name: apache2
+- name: install LetsEncrypt
+  apt:
+    state: latest
+    name: letsencrypt
+- name: enable Apache mod_headers
+  shell: "a2enmod \"headers\""
+- name: enable Apache mod_ssl
+  shell: "a2enmod \"ssl\""
+- name: enable Apache mod_rewrite
+  shell: "a2enmod \"rewrite\""
+- name: disable cgi-bin
+  shell: "a2disconf \"serve-cgi-bin\""
+- name: disable default web root
+  shell: "a2dissite \"000-default\""
+- name: disable server tokens
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/conf-available/security.conf"
+    regexp: "^ServerTokens"
+    line: "ServerTokens Prod"
+- name: set X-Content-Type-Options header
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/conf-available/security.conf"
+    regexp: "^Header set X-Content-Type-Options"
+    line: "Header set X-Content-Type-Options: \"nosniff\""
+- name: set X-Frame-Options header
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/conf-available/security.conf"
+    regexp: "^Header set X-Frame-Options"
+    line: "Header set X-Frame-Options: \"sameorigin\""
+- name: set X-XSS-Protection header
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/conf-available/security.conf"
+    regexp: "^Header set X-XSS-Protection"
+    line: "Header set X-XSS-Protection: \"1; mode=block\""
+- name: create web roots
+  file:
+    state: directory
+    path: "/var/www/{{ item.hostname }}"
+    owner: "root"
+    group: "root"
+    mode: 0755
+  with_items: "{{ vhosts }}"
+- name: configure vhosts
+  template:
+    src: "files/template.conf"
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}.conf"
+    owner: "root"
+    group: "root"
+    mode: 0600
+  with_items: "{{ vhosts }}"
+- name: configure SSL vhosts
+  template:
+    src: "files/template-ssl.conf"
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
+    owner: "root"
+    group: "root"
+    mode: 0600
+  with_items: "{{ vhosts }}"
+- name: create config symlinks
+  shell: "a2ensite \"{{ item.hostname }}\""
+  with_items: "{{ vhosts }}"
+- name: remove SSL config symlinks
+  shell: "a2dissite \"{{ item.hostname }}-ssl\""
+  with_items: "{{ vhosts }}"
+  notify: restart Apache
+- name: create certificate
+  shell: "[ ! -d \"/etc/letsencrypt/live/{{ item.hostname }}\" ] && letsencrypt certonly --agree-tos --webroot -n -w \"/var/www/{{ item.hostname }}\" -d \"{{ item.hostname }}\" -m \"{{ item.ssladminemailaddress }}\" || exit 0"
+  with_items: "{{ vhosts }}"
+- name: renew certificate
+  shell: "letsencrypt renew"
+  notify: restart Apache
+# move existing web root back in to place
+- name: enable URL rewriting
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}.conf"
+    regexp: "^RewriteEngine On"
+    insertafter: "DocumentRoot /var/www/"
+    line: "RewriteEngine On"
+  with_items: "{{ vhosts }}"
+- name: enable pass through for .well-known on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}.conf"
+    regexp: "^^RewriteCond %{REQUEST_URI}"
+    insertafter: "RewriteEngine On"
+    line: "RewriteCond %{REQUEST_URI} !^/\\.well\\-known/acme\\-challenge/"
+  with_items: "{{ vhosts }}"
+- name: enable HTTPS redirect on vhost
+  lineinfile:
+    state: present
+    dest: "/etc/apache2/sites-available/{{ item.hostname }}.conf"
+    regexp: "^RewriteRule .*https"
+    insertafter: "^RewriteCond %{REQUEST_URI}"
+    line: "RewriteRule ^/?(.*) https://{{ item.hostname }}/$1 [R=301,NE,L]"
+  with_items: "{{ vhosts }}"
+- name: create SSL config symlinks
+  shell: "a2ensite \"{{ item.hostname }}-ssl\""
+  with_items: "{{ vhosts }}"
+  notify: restart Apache
+- name: UFW allow TCP HTTP
+  ufw:
+    rule: allow
+    direction: in
+    proto: "tcp"
+    port: 80
+- name: UFW allow TCP HTTPS
+  ufw:
+    rule: allow
+    direction: in
+    proto: "tcp"
+    port: 443

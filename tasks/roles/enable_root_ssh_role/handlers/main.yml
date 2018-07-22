@@ -1,0 +1,5 @@
+- name: restart SSH
+  service:
+    state: restarted
+    name: ssh
+    enabled: true

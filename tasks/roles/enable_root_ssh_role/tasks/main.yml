@@ -1,0 +1,18 @@
+- name: add root key
+  authorized_key:
+    state: present
+    user: "root"
+    key: "{{ lookup('file', '/home/tmb/.ssh/nth-dimension.pub') }}"
+- name: force group membership for SSH access
+  lineinfile:
+    state: absent
+    dest: /etc/ssh/sshd_config
+    regexp: "^AllowGroups"
+  notify: restart SSH
+- name: enable root SSH access
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin yes"
+  notify: restart SSH

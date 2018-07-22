@@ -1,0 +1,8 @@
+- name: install MySQL client
+  apt:
+   name: mysql-client
+   state: latest
+- name: install AutoMySQLBackup
+  apt:
+    name: automysqlbackup
+    state: latest

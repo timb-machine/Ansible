@@ -1,0 +1,136 @@
+- name: install unattended upgrades
+  apt:
+    state: latest
+    name: unattended-upgrades
+- name: enable periodic upgrades
+  copy:
+    src: "files/10periodic"
+    dest: "/etc/apt/apt.conf.d"
+    owner: "root"
+    group: "root"
+    mode: 0644
+- name: enable unattended upgrades
+  copy:
+    src: "files/50unattended-upgrades"
+    dest: "/etc/apt/apt.conf.d"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify:
+    - restart upgrades
+- name: add admin
+  user:
+    state: present
+    name: "{{ admin }}"
+    password: "{{ admin_hash }}"
+    comment: "Tim Brown"
+    shell: "/bin/bash"
+    groups: "sudo,adm"
+- name: add admin key
+  authorized_key:
+    state: present
+    user: "{{ admin }}"
+    key: "{{ lookup('file', '/home/tmb/.ssh/nth-dimension.pub') }}"
+- name: remove SSH interface wildcard
+  lineinfile:
+    state: absent
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^ListenAddress ::"
+- name: limit SSH interfaces
+  lineinfile:
+    state: present
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^ListenAddress"
+    line: "ListenAddress {{ ipv4 }}"
+  notify: restart SSH
+- name: disable SSH password access
+  lineinfile:
+    state: present
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+  notify: restart SSH
+- name: create SSH banner
+  copy:
+    src: "files/issue.net"
+    dest: "/etc"
+    owner: "root"
+    group: "root"
+    mode: 0644
+- name: enable SSH banner
+  lineinfile:
+    state: present
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^Banner"
+    line: "Banner /etc/issue.net"
+  notify: restart SSH
+- name: install UFW
+  apt:
+    state: latest
+    name: ufw
+- name: enable UFW logging
+  ufw:
+    logging: on
+- name: UFW allow from trusted
+  ufw:
+    rule: allow
+    direction: in
+    src: "{{ item }}"
+  with_items:
+    - 80.82.247.58/32
+    - 81.145.209.198/32
+- name: UFW allow from paris2.fr
+  ufw:
+    rule: allow
+    direction: in
+    src: "{{ item }}"
+  with_items:
+    - 95.142.171.45/32
+    - 2001:4b98:dc0:47:216:3eff:fe61:a662/128
+- name: UFW allow from newyork1.us
+  ufw:
+    rule: allow
+    direction: in
+    src: "{{ item }}"
+  with_items:
+    - 159.203.89.126/32
+    - 2604:a880:800:a1::17:f001/128
+- name: UFW allow from bangalore1.in
+  ufw:
+    rule: allow
+    direction: in
+    src: "{{ item }}"
+  with_items:
+    - 139.59.9.60/32
+    - 2400:6180:100:d0::3001/128
+- name: UFW allow from city1.sg
+  ufw:
+    rule: allow
+    direction: in
+    src: "{{ item }}"
+  with_items:
+    - 128.199.163.237/32
+    - 2400:6180:0:d0::3a:2001/128
+- name: UFW default deny
+  ufw:
+    state: enabled
+    policy: deny
+- name: force group membership for SSH access
+  lineinfile:
+    state: present
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^AllowGroups"
+    line: "AllowGroups adm"
+  notify: restart SSH
+- name: disable root SSH access
+  lineinfile:
+    state: present
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+  notify: restart SSH
+- name: remove root key
+  authorized_key:
+    state: absent
+    user: "root"
+    key: "{{ lookup('file', '/home/tmb/.ssh/nth-dimension.pub') }}"
