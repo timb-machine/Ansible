@@ -1,4 +1,4 @@
-- name: add root key
+- name: create root key
   authorized_key:
     state: present
     user: "root"

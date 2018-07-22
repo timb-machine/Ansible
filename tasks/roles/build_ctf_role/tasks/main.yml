@@ -23,9 +23,9 @@
     owner: "root"
     group: "root"
     mode: 0600
-- name: enable Apache mod_proxy_http
+- name: enable mod_proxy_http
   shell: "a2enmod proxy_http"
-- name: enable Apache mod_proxy
+- name: enable mod_proxy
   shell: "a2enmod proxy"
 - name: enable pass through for .well-known on vhost
   lineinfile:

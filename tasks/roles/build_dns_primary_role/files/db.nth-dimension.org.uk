@@ -1,8 +1,8 @@
-$ORIGIN .
 $TTL 43200	; 12 hours
+$ORIGIN nth-dimension.org.uk.
 nth-dimension.org.uk.			IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.org.uk. (
-								40111      ; serial
-								43201      ; refresh (12 hours)
+								40116      ; serial
+								43200      ; refresh (12 hours)
 								300        ; retry (5 minutes)
 								3628800    ; expire (6 weeks)
 								86400      ; minimum (1 day)
@@ -25,8 +25,11 @@ nth-dimension.org.uk.			IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimen
 							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
 							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
 							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
-						TYPE257	\# 17 ( 00056973737565636F6D6F646F2E636F6D )
-$ORIGIN nth-dimension.org.uk.
+default._domainkey				TXT	( "v=DKIM1; h=sha256; k=rsa; "
+							  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAni+BMFa4BMyWAS5SDrgmxwiHYX7uUT43Gbp95+UhUqm73X+NgwrC5xQSGNLQ9eWvEbXVW6bh0mYhuxNoPG8Lz0l/i0iW3WWFmLrJLCZfo+UtzSN+KXWKxTNZf8TQegQ/w3BwYPU6FV5VmcFs5g6QA0FCi7Vn4LIiG2qlOTHodhdeLqQATX1OvrdYeb0sWvRUJXK0MEhOchHFvO"
+							  "iwOM0g6coC1PNGrKml7RcyNhdLhUctbqMh7yZDT+xX0WYlM3RZxkokm/0SoDfOl136sZlxo9D7UQhPPTC78ooqo3XEd+ofgM+woFW5ZX8VP8eoY5a70RSDKa9HFjGIAagXFdP9kwIDAQAB" )
+						TYPE257	\# 8 000569737375653B
+						TYPE257	\# 23 0009697373756577696C64636F6D6F646F63612E636F6D
 _429527E300D08DE51E21C0E924658596		CNAME	4AD521F7C2222E198DF8187709D97548.5D44A10A3BF3FDA056A01C74B6F5334F.d3d9022eea71cf269290.comodoca.com.
 $ORIGIN fr.nth-dimension.org.uk.
 paris1						A	95.142.163.59
@@ -112,6 +115,9 @@ lists						SPF	( "v=spf1 ip4:95.142.163.59/32 ip6:2001:4b98:dc0:47:216:3eff:fea2
 							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
 							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
 							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+default._domainkey.lists			TXT	( "v=DKIM1; h=sha256; k=rsa; "
+							  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnFIT0alKnjg9K5M4ra3n3bTx0kUybDCIRvB3MH5emG+/rgSb9scnEAkjo0LuymbmhkJQOc66wj0eiZMHX0ngSjAYSEmtXp374ANGsO27sYwQk9Xuq1mMruFdEYub6UePE0pgpGJI1uUB3M8wcqFN/8286YLuJclKOSF/UiuqJy07kJ9c8r1uySvDmbMET4uQAJxTCk8kDlyWs4"
+							  "gQJ807vBRGvzo1L+tPwuwfL1nY1s98nfjP5JNfJHABw+0Ch+5eXukYTWO3BcdCKehFyJhEXLEmDNUVDNqsPszKJ70xpXjHZqKLF/DTQLk41yRoV3+sUcnhktuT0HmEtGIQ+EyO8QIDAQAB" )
 $ORIGIN uk.nth-dimension.org.uk.
 fw						A	80.82.247.58
 $ORIGIN ext.uk.nth-dimension.org.uk.

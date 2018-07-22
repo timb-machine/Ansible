@@ -2,7 +2,7 @@
   group:
     state: present
     name: ssl-cert
-- name: install certificate
+- name: create certificates
   copy:
     src: "{{ item }}"
     dest: "/etc/ssl/certs"
@@ -12,7 +12,7 @@
   with_items:
     - files/wildcard.nth-dimension.org.uk.pem
     - files/GandiStandardSSLCA2.pem
-- name: install key
+- name: create keys
   copy:
     content: "{{ ssl_key }}"
     dest: "/etc/ssl/private/wildcard.nth-dimension.org.uk.key"

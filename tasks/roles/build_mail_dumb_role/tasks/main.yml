@@ -16,7 +16,7 @@
 - name: rebuild aliases
   shell: "newaliases"
   notify: restart Sendmail
-- name: create forward file
+- name: create forwarder
   copy:
     src: "files/forward"
     dest: "/home/{{ admin }}/.forward"

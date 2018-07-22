@@ -18,7 +18,7 @@
     mode: 0644
   notify:
     - restart upgrades
-- name: add admin
+- name: create admin
   user:
     state: present
     name: "{{ admin }}"
@@ -27,12 +27,12 @@
     shell: "/bin/bash"
     groups: "sudo,adm"
   no_log: true
-- name: add admin key
+- name: create admin key
   authorized_key:
     state: present
     user: "{{ admin }}"
     key: "{{ lookup('file', '/home/tmb/.ssh/nth-dimension.pub') }}"
-- name: remove SSH interface wildcard
+- name: disable SSH interface wildcard
   lineinfile:
     state: absent
     dest: "/etc/ssh/sshd_config"

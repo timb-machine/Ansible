@@ -1,0 +1,17 @@
+default._dkim.nth-dimension.org.uk nth-dimension.org.uk:default:/etc/dkimkeys/nth-dimension.org.uk.private
+default._dkim.lists.nth-dimension.org.uk lists.nth-dimension.org.uk:default:/etc/dkimkeys/lists.nth-dimension.org.uk.private
+default._dkim.punk.eu.org punk.eu.org:default:/etc/dkimkeys/punk.eu.org.private
+default._dkim.timandjag.org timandjag.org:default:/etc/dkimkeys/timandjag.org.private
+default._dkim.timb.me.uk timb.me.uk:default:/etc/dkimkeys/timb.me.uk.private
+default._dkim.machine.org.uk machine.org.uk:default:/etc/dkimkeys/machine.org.uk.private
+default._dkim.solarisadmin.org solarisadmin.org:default:/etc/dkimkeys/solarisadmin.org.private
+default._dkim.debianadmin.org debianadmin.org:default:/etc/dkimkeys/debianadmin.org.private
+default._dkim.unixadmin.org unixadmin.org:default:/etc/dkimkeys/unixadmin.org.private
+default._dkim.duncehats.org duncehats.org:default:/etc/dkimkeys/duncehats.org.private
+default._dkim.vulnerabilitymarketingboard.com vulnerabilitymarketingboard.com:default:/etc/dkimkeys/vulnerabilitymarketingboard.com.private
+default._dkim.exploitwriter.org exploitwriter.org:default:/etc/dkimkeys/exploitwriter.org.private
+default._dkim.securityresearcher.org securityresearcher.org:default:/etc/dkimkeys/securityresearcher.org.private
+default._dkim.fluidic-arts.co.uk fluidic-arts.co.uk:default:/etc/dkimkeys/fluidic-arts.co.uk.private
+default._dkim.fuzzled.pl fuzzled.pl:default:/etc/dkimkeys/fuzzled.pl.private
+default._dkim.cspcalculator.org cspcalculator.org:default:/etc/dkimkeys/cspcalculator.org.private
+default._dkim.emfctf.org emfctf.org:default:/etc/dkimkeys/emfctf.org.private

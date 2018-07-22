@@ -1,7 +1,7 @@
-$TTL 86400	; 1 day
+$TTL 43200      ; 12 hours
 $ORIGIN machine.org.uk.
 machine.org.uk.				IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.org.uk. (
-								40106      ; serial
+								40109      ; serial
 								43200      ; refresh (12 hours)
 								300        ; retry (5 minutes)
 								3628800    ; expire (6 weeks)
@@ -25,5 +25,10 @@ machine.org.uk.				IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.
 							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
 							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
 							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+default._domainkey				TXT	( "v=DKIM1; h=sha256; k=rsa; "
+							  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqpELAUKYLxuSYXkHCVeBNY2QTGqCvzNDjf7EYy2oZW7Stk33olW/K4XCMKCROJlEm12Ku2q0kcLVpgJAPJcprXUOb91lcF9ZsWLyDhrkwdgcwQ+71DDb1ORKi2DNbwtkbvrxXNUK+kElmx2siQkZLkpgauAThySu7z8FKg/kaK1Bly8QwWpm8l3ICxvk/12d39+qi/62cdSCU"
+							  "I8mOtG6BPE+j9FPIJv0FK3R2sI1bhJLdtKdl4X7ALLMjk+RyJMDvp9mE/zffjvSwR0bEX92kTSvgYNisqHAKaC8ApM7klGYW6OOzhaKra82+9L0wNagc4PtGXf6G7WKkGB51sHPwIDAQAB" )
+						TYPE257	\# 22 000569737375656C657473656E63727970742E6F7267
+						TYPE257	\# 12 0009697373756577696C643B
 www						CNAME	www.nth-dimension.org.uk.
 sandbox						CNAME	www.nth-dimension.org.uk.

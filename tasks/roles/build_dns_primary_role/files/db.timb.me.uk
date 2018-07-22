@@ -1,7 +1,7 @@
-$TTL 86400	; 1 day
+$TTL 43200      ; 12 hours
 $ORIGIN timb.me.uk.
 timb.me.uk.				IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.org.uk. (
-								40106      ; serial
+								40109      ; serial
 								43200      ; refresh (12 hours)
 								300        ; retry (5 minutes)
 								3628800    ; expire (6 weeks)
@@ -25,3 +25,8 @@ timb.me.uk.				IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.org.
 							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
 							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
 							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+default._domainkey				TXT	( "v=DKIM1; h=sha256; k=rsa; "
+							  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAunNTfqlPL4OOsh1retuM/SlIs8e3mZQGLlNrqo1h2CXWc1F5vhwR44IgTK4iGr5IdtszQ3WCeWfRlNhNw+HTlxEc20H3b6f8ZcmXRQVDWA5bYhk5Gw1csaytfKoRSwxWellCZji59GQ5yJDVR0WKjJ3NZAjW4rwvlm6qXZP0G3KYHb7Pxp3hJU9AMjTZTIZr8CW+uOSMR+ZRUa"
+							  "e6kEAJGbFUq+uOTp59LiyNwv+Pp/8YAfRw3B9QHbq/BunxyHPhoUUGeqC/St52VQ1VNu3ERQ5l4n1EOzUBJJUgsOvPFMhWihgJ6a2jtZKJS2Fn7ECzm9+Wq55/ui8dS6UW0mU6+QIDAQAB" )
+						TYPE257	\# 22 000569737375656C657473656E63727970742E6F7267
+						TYPE257	\# 12 0009697373756577696C643B

@@ -1,16 +1,50 @@
-- name: install ClamAV
+- name: install OpenDKIM
   apt:
     state: latest
-    name: clamav-milter
+    name: opendkim
+  notify: restart OpenDKIM
 - name: install SpamAssassin
   apt:
     state: latest
     name: spamass-milter
   notify: restart SpamAssassin
+- name: install ClamAV
+  apt:
+    state: latest
+    name: clamav-milter
+  notify: restart ClamAV
 - name: install Sendmail
   apt:
     name: sendmail
     state: latest
+- name: configure OpenDKIM
+  copy:
+    src: "files/opendkim.conf"
+    dest: "/etc"
+    owner: "opendkim"
+    group: "opendkim"
+    mode: 0600
+- name: create keys
+  copy:
+    content: "{{ item.key }}"
+    dest: "/etc/dkimkeys/{{ item.hostname }}.private"
+    owner: "opendkim"
+    group: "opendkim"
+    mode: 0600
+  with_items: "{{ dkim }}"
+  no_log: true
+- name: configure keys
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/dkimkeys"
+    owner: "opendkim"
+    group: "opendkim"
+    mode: 0600
+  with_items:
+    - files/keytable
+    - files/signingtable
+    - files/trustedhosts
+  notify: restart OpenDKIM
 - name: configure Sendmail
   template:
     src: "{{ item }}"
@@ -37,7 +71,7 @@
   args:
     chdir: "/etc/mail"
   notify: restart Sendmail
-- name: create forward file
+- name: create forwarder
   copy:
     src: "files/forward"
     dest: "/home/{{ admin }}/.forward"

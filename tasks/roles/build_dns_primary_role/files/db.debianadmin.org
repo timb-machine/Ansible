@@ -1,7 +1,7 @@
-$TTL 86400	; 1 day
+$TTL 43200      ; 12 hours
 $ORIGIN debianadmin.org.
 debianadmin.org.			IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.org.uk. (
-								40106      ; serial
+								40109      ; serial
 								43200      ; refresh (12 hours)
 								300        ; retry (5 minutes)
 								3628800    ; expire (6 weeks)
@@ -25,3 +25,8 @@ debianadmin.org.			IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.
 							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
 							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
 							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+default._domainkey				TXT	( "v=DKIM1; h=sha256; k=rsa; "
+							  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp4oN/sLQDlMw5PhXse5JMW3KAWcXdzBHBfHOJKygDLZeVNnDog4WngxA2mlj3SIQ8KhRWYXlrBAi2JywCYAxz5r/CioWJmIx1I1R1u/PPuYYbS0NvtybW2DFqitKmz6rjKi//58PCFC7XjcoLvsExBh6FKY/WUk+ZzPIH2IrN0JeRBnthtZhB24kI4JQ+uOXRd13Vw74Ct/p6s"
+							  "n1JPViDTvZv7D/Ojphdscc9NMjOdBRiT+By3U1psZd2ukKzgV/Y1OS5VEO386NTN6wG8JtKYJnY7Ubw4q/dDs906V8gx/Ly5c0rq4fCNJXd0dYBca6ceAI2B0CGIj33izbmavVWQIDAQAB" )
+						TYPE257	\# 22 000569737375656C657473656E63727970742E6F7267
+						TYPE257	\# 12 0009697373756577696C643B

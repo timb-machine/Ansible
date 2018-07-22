@@ -1,7 +1,7 @@
-$TTL 86400	; 1 day
+$TTL 43200      ; 12 hours
 $ORIGIN timandjag.org.
 timandjag.org.				IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.org.uk. (
-								40106      ; serial
+								40109      ; serial
 								43200      ; refresh (12 hours)
 								300        ; retry (5 minutes)
 								3628800    ; expire (6 weeks)
@@ -25,4 +25,9 @@ timandjag.org.				IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.o
 							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
 							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
 							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+default._domainkey				TXT	( "v=DKIM1; h=sha256; k=rsa; "
+							  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA/gL1iPGQ93sn8jeMQ8Ux7aKogsgQZlkA4C+RER/WHeBOZTqFnHJGXxLXDcdHT+ejrq9ebi+/fzNrGuKDvboyLJMsJFy/FqskqMQRq4waAtuq3WwudLXnCPxqSuXS+jpBjgUEtS9HGkZXm33ClDtJQN49I8b8uDLwUKtEkPY3WZwFM0f9yPk+Rk/oPC7DSdOX9/aYkjx8Urn7cA"
+							  "BzxUkb+3cXZGfHJhE4PJlTCbYDriTO7QorGB1W9c9Y+OSBR1B1MI7uiw0K0iBs/vqgbeROd2E+OL3pK81X6PzM51bn5WdzqDNCEKfg85YX2BUcFt4r4nVNzCsf8Qkg3VRpIQQ32QIDAQAB" )
+						TYPE257	\# 22 000569737375656C657473656E63727970742E6F7267
+						TYPE257	\# 12 0009697373756577696C643B
 www						CNAME	www.nth-dimension.org.uk.

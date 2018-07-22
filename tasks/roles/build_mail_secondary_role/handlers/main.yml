@@ -1,7 +1,17 @@
+- name: restart OpenDKIM
+  service:
+    state: restarted
+    name: "opendkim"
+    enabled: true
 - name: restart SpamAssassin
   service:
     state: restarted
     name: "spamassassin"
+    enabled: true
+- name: restart ClamAV
+  service:
+    state: restarted
+    name: "clamav-milter"
     enabled: true
 - name: restart Sendmail
   service:

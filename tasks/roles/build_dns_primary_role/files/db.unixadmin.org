@@ -1,7 +1,7 @@
-$TTL 86400	; 1 day
+$TTL 43200      ; 12 hours
 $ORIGIN unixadmin.org.
 unixadmin.org.				IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.org.uk. (
-								40106      ; serial
+								40109      ; serial
 								43200      ; refresh (12 hours)
 								300        ; retry (5 minutes)
 								3628800    ; expire (6 weeks)
@@ -25,3 +25,8 @@ unixadmin.org.				IN	SOA	ns1.fr.nth-dimension.org.uk. hostmaster.nth-dimension.o
 							  "ip4:159.203.89.126/32 ip6:2604:a880:800:a1::17:f001/128"
 							  "ip4:139.59.9.60/32 ip6:2400:6180:100:d0::3001/128"
 							  "ip4:128.199.163.237/32 ip6:2400:6180:0:d0::3a:2001/128 ~all" )
+default._domainkey				TXT	( "v=DKIM1; h=sha256; k=rsa; "
+							  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7dfIIcDCmImxsFu1m11BcBUvsr053aWml0HJw2rg95Z+eJZ3BhKFzBjjx9Jw2FLWy40c7aKlyPcIC7ZZrXyBPrSrDGG9EWAvmTmhXdYdyY15m/YnJVZio4GgAKc5Bt7OHFSSM6Flr0YVc1axUWaByP4fjKG6daP6hP8UyYzR5ecU3ZE9/A6TO+5OlMv3Fo41cexCJ06aQi5Cfb"
+							  "E/5UsNk3miMMkuHjyGZwlN6WlwCPIrjRTtVpUtSeIhs1py+SuPkZy+7FOJvVn+zkA1xTvAiaMeth9c7natp+uRklSF1hJEZtD5qvxrbE5lYgE/XFi7ruHHASTvLLYUSkF+IyWRPQIDAQAB" )
+						TYPE257	\# 22 000569737375656C657473656E63727970742E6F7267
+						TYPE257	\# 12 0009697373756577696C643B

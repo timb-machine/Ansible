@@ -6,11 +6,11 @@
   apt:
     state: latest
     name: letsencrypt
-- name: enable Apache mod_headers
+- name: enable mod_headers
   shell: "a2enmod \"headers\""
-- name: enable Apache mod_ssl
+- name: enable mod_ssl
   shell: "a2enmod \"ssl\""
-- name: enable Apache mod_rewrite
+- name: enable mod_rewrite
   shell: "a2enmod \"rewrite\""
 - name: disable cgi-bin
   shell: "a2disconf \"serve-cgi-bin\""
@@ -22,19 +22,19 @@
     dest: "/etc/apache2/conf-available/security.conf"
     regexp: "^ServerTokens"
     line: "ServerTokens Prod"
-- name: set X-Content-Type-Options header
+- name: enable X-Content-Type-Options header
   lineinfile:
     state: present
     dest: "/etc/apache2/conf-available/security.conf"
     regexp: "^Header set X-Content-Type-Options"
     line: "Header set X-Content-Type-Options: \"nosniff\""
-- name: set X-Frame-Options header
+- name: enable X-Frame-Options header
   lineinfile:
     state: present
     dest: "/etc/apache2/conf-available/security.conf"
     regexp: "^Header set X-Frame-Options"
     line: "Header set X-Frame-Options: \"sameorigin\""
-- name: set X-XSS-Protection header
+- name: enable X-XSS-Protection header
   lineinfile:
     state: present
     dest: "/etc/apache2/conf-available/security.conf"
@@ -48,7 +48,7 @@
     group: "root"
     mode: 0755
   with_items: "{{ vhosts }}"
-- name: configure vhosts
+- name: create vhosts
   template:
     src: "files/template.conf"
     dest: "/etc/apache2/sites-available/{{ item.hostname }}.conf"
@@ -56,7 +56,7 @@
     group: "root"
     mode: 0600
   with_items: "{{ vhosts }}"
-- name: configure SSL vhosts
+- name: create SSL vhosts
   template:
     src: "files/template-ssl.conf"
     dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
@@ -71,14 +71,13 @@
   shell: "a2dissite \"{{ item.hostname }}-ssl\""
   with_items: "{{ vhosts }}"
   notify: restart Apache
-- name: create certificate
+- name: create certificatse
   shell: "[ ! -d \"/etc/letsencrypt/live/{{ item.hostname }}\" ] && letsencrypt certonly --agree-tos --webroot -n -w \"/var/www/{{ item.hostname }}\" -d \"{{ item.hostname }}\" -m \"{{ item.ssladminemailaddress }}\" || exit 0"
   with_items: "{{ vhosts }}"
 - name: renew certificate
   shell: "letsencrypt renew"
   notify: restart Apache
-# move existing web root back in to place
-- name: enable URL rewriting
+- name: enable URL rewriting on vhosts
   lineinfile:
     state: present
     dest: "/etc/apache2/sites-available/{{ item.hostname }}.conf"
@@ -86,7 +85,7 @@
     insertafter: "DocumentRoot /var/www/"
     line: "RewriteEngine On"
   with_items: "{{ vhosts }}"
-- name: enable pass through for .well-known on vhost
+- name: enable pass through for .well-known on vhosts
   lineinfile:
     state: present
     dest: "/etc/apache2/sites-available/{{ item.hostname }}.conf"
@@ -94,7 +93,7 @@
     insertafter: "RewriteEngine On"
     line: "RewriteCond %{REQUEST_URI} !^/\\.well\\-known/acme\\-challenge/"
   with_items: "{{ vhosts }}"
-- name: enable HTTPS redirect on vhost
+- name: enable HTTPS redirect on vhosts
   lineinfile:
     state: present
     dest: "/etc/apache2/sites-available/{{ item.hostname }}.conf"

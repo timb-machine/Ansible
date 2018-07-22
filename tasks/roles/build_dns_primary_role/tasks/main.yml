@@ -2,7 +2,7 @@
   apt:
     state: latest
     name: bind9
-- name: make BIND 9 cache directory
+- name: create cache directory
   file:
     state: directory
     path: "/var/cache/bind/pri"
@@ -24,7 +24,7 @@
     - files/named.conf.local
     - files/named.conf.local.internal
     - files/named.conf.local.external
-- name: add BIND 9 zones
+- name: create BIND 9 zones
   copy:
     src: "{{ item }}"
     dest: "/var/cache/bind/pri"

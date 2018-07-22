@@ -88,7 +88,8 @@ dnl # Enable DNS based blackholes
 define(`confBIND_OPTS', `WorkAroundBrokenAAAA')dnl
 FEATURE(`dnsbl', `bl.spamcop.net', `"Spam blocked see: http://spamcop.net/bl.shtml?"$&{client_addr}')dnl
 dnl #
-dnl # Enable Spam Assassin and ClamAV
+dnl # Enable OpenDKIM, Spam Assassin and ClamAV
+INPUT_MAIL_FILTER(`opendkim', `S=inet:8891@localhost')
 INPUT_MAIL_FILTER(`spamass',`S=local:/var/run/spamass/spamass.sock, F=, T=C:15m;S:4m;R:4m;E:10m')dnl
 INPUT_MAIL_FILTER(`clamav-milter', `S=local:/var/run/clamav/clamav-milter.ctl, F=, T=S:4m;R:4m')dnl
 dnl #

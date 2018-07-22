@@ -20,7 +20,7 @@
     src: "/usr/share/wordpress"
     dest: "/var/www/{{ item.hostname }}"
   with_items: "{{ blogs }}"
-- name: make content directory
+- name: create content directories
   file:
     state: directory
     path: "/var/www/wp-content/{{ item.hostname }}"
@@ -28,7 +28,7 @@
     group: "root"
     mode: 0755
   with_items: "{{ blogs }}"
-- name: enable wp-content on vhost
+- name: enable wp-content on vhosts
   lineinfile:
     state: present
     dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
@@ -36,14 +36,14 @@
     insertafter: "DocumentRoot /var/www/"
     line: "Alias /wp-content /var/www/wp-content/{{ item.hostname }}"
   with_items: "{{ blogs }}"
-- name: configure .htaccess
+- name: create htaccess
   file:
     src: "files/htaccess"
     dest: "/etc/wordpress"
     owner: "root"
     group: "root"
     mode: 0644
-- name: configure directory overrides on vhost
+- name: enable directory overrides on vhosts
   lineinfile:
     state: present
     dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
@@ -51,7 +51,7 @@
     insertafter: "DocumentRoot /var/www/"
     line: "<Directory /var/www/{{ item.hostname }}>"
   with_items: "{{ blogs }}"
-- name: enable .htaccess level URL rewrites on vhost
+- name: enable htaccess level URL rewrites on vhosts
   lineinfile:
     state: present
     dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"
@@ -59,7 +59,7 @@
     insertafter: "^<Directory /var/www/"
     line: "AllowOverride FileInfo"
   with_items: "{{ blogs }}"
-- name: finish directory overrides on vhost
+- name: finish directory overrides on vhosts
   lineinfile:
     state: present
     dest: "/etc/apache2/sites-available/{{ item.hostname }}-ssl.conf"

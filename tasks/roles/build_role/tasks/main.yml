@@ -23,21 +23,21 @@
     owner: "root"
     group: "root"
     mode: 0644
-- name: create swap file
+- name: create swap
   shell: "[ ! -f \"/swap\" ] && fallocate -l 2G /swap.tmp || exit 0"
-- name: format swap file
+- name: format swap
   shell: "[ ! -f \"/swap\" ] && mkswap /swap.tmp || exit 0"
-- name: rotate swap file
+- name: rotate swap
   shell: "[ ! -f \"/swap\" ] && mv /swap.tmp /swap || exit 0"
-- name: fix swap file permissions
+- name: fix swap permissions
   file:
     path: "/swap"
     owner: "root"
     group: "root"
     mode: 0600
-- name: add swap
+- name: enable swap
   shell: "[ -z \"$(swapon)\" ] && swapon /swap || exit 0"
-- name: write swap entry to fstab
+- name: create swap entry in fstab
   mount:
     state: present
     name: none

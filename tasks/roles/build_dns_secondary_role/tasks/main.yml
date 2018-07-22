@@ -2,7 +2,7 @@
   apt:
     state: latest
     name: bind9
-- name: make BIND 9 cache directory
+- name: create cache directory
   file:
     state: directory
     path: "/var/cache/bind/sec"
