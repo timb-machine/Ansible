@@ -1,7 +1,7 @@
 - name: remove old data
   file:
-    path: "{{ item }}"
     state: absent
+    path: "{{ item }}"
   with_items:
     - /usr/local/data/CTFd
     - /usr/local/data/mysql
