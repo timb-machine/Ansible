@@ -1,13 +1,17 @@
+- name: create ssl-cert group
+  group:
+    state: present
+    name: ssl-cert
 - name: install certificate
-  file:
+  copy:
     src: "{{ item }}"
     dest: "/etc/ssl/certs"
     owner: "root"
     group: "ssl-cert"
     mode: 0644
   with_items:
-    - file/wildcard.nth-dimension.org.uk.pem
-    - file/GandiStandardSSLCA2.pem
+    - files/wildcard.nth-dimension.org.uk.pem
+    - files/GandiStandardSSLCA2.pem
 - name: install key
   copy:
     content: "{{ ssl_key }}"
