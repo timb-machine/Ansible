@@ -24,7 +24,7 @@
     - files/relay-domains
     - files/sendmail.mc
 - name: configure SSL
-  file:
+  copy:
     src: "files/starttls.m4"
     dest: "/etc/mail/tls"
     owner: "root"
