@@ -56,14 +56,14 @@ include(`/etc/mail/tls/starttls.m4')dnl
 dnl # include(`/etc/mail/sasl/sasl.m4')dnl
 FEATURE(`no_default_msa')dnl
 DAEMON_OPTIONS(`Family=inet, Name=MTA-v4, Port=smtp, Addr=127.0.0.1')dnl
-DAEMON_OPTIONS(`Family=inet6, Name=MTA-v6, Port=smtp, Addr=0:0:0:0:0:0:0:1')dnl
 DAEMON_OPTIONS(`Family=inet, Name=MTA-v4, Port=smtp, Addr={{ ipv4 }}')dnl
+DAEMON_OPTIONS(`Family=inet6, Name=MTA-v6, Port=smtp, Addr=::1')dnl
 DAEMON_OPTIONS(`Family=inet6, Name=MTA-v6, Port=smtp, Addr={{ ipv6 }}')dnl
 DAEMON_OPTIONS(`Family=inet, Name=MSP-v4, Port=submission, M=Ea, Addr=127.0.0.1')dnl
-DAEMON_OPTIONS(`Family=inet6, Name=MSP-v6, Port=submission, M=Ea, Addr=0:0:0:0:0:0:0:1')dnl
 DAEMON_OPTIONS(`Family=inet, Name=MSP-v4, Port=submission, M=Ea, Addr={{ ipv4 }}')dnl
+DAEMON_OPTIONS(`Family=inet6, Name=MSP-v6, Port=submission, M=Ea, Addr=::1')dnl
 DAEMON_OPTIONS(`Family=inet6, Name=MSP-v6, Port=submission, M=Ea, Addr={{ ipv6 }}')dnl
-CLIENT_OPTIONS((`Family=inet')
+CLIENT_OPTIONS(`Family=inet')
 dnl #
 dnl # Be somewhat anal in what we allow
 define(`confPRIVACY_FLAGS', `needmailhelo,noexpn,novrfy,restrictqrun,restrictexpand,nobodyreturn,authwarnings')dnl
